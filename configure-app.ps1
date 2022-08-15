@@ -24,24 +24,18 @@ New-Item -Path "C:\\" -Name "tools" -ItemType "directory" -Force
 New-Item -Path "C:\\tools\\" -Name "selenium" -ItemType "directory" -Force
 
 Write-Output \'Installing ChromeDriver\'
-\$ChromeDriverPackage = Install-Package Selenium.WebDriver.ChromeDriver -Destination . -Force
-\$ChromeDriverPackageExe = -join(\$ChromeDriverPackage.Name,".",\$ChromeDriverPackage.Version, "\\driver\\win32\\chromedriver.exe")
-Copy-Item \$ChromeDriverPackageExe -Destination "C:\\tools\\selenium" -Force
+Install-Package Selenium.WebDriver.ChromeDriver -Destination "C:\\tools\\selenium" -Force
 
 Write-Output \'Installing IEDriver\'
-\$IEDriverPackage = Install-Package Selenium.WebDriver.IEDriver -Destination . -Force
-\$IEDriverPackageExe = -join(\$IEDriverPackage.Name,".",\$IEDriverPackage.Version, "\\driver\\IEDriverServer.exe")
-Copy-Item \$IEDriverPackageExe -Destination "C:\\tools\\selenium" -Force
+Install-Package Selenium.WebDriver.IEDriver -Destination "C:\\tools\\selenium" -Force
 
 Write-Output \'Installing MSEdgeDriver\'
-\$MSEdgeDriverPackage = Install-Package Selenium.WebDriver.MSEdgeDriver -Destination . -Force
-\$MSEdgeDriverPackageExe = -join(\$MSEdgeDriverPackage.Name,".",\$MSEdgeDriverPackage.Version, "\\driver\\win32\\msedgedriver.exe")
-Copy-Item \$MSEdgeDriverPackageExe -Destination "C:\\tools\\selenium" -Force
+Install-Package Selenium.WebDriver.MSEdgeDriver -Destination "C:\\tools\\selenium" -Force
 ls C:\\tools\\selenium
 
 Write-Output \'Installing WinAppDriver and checking install\'
-New-Item -Path "${WORKSPACE}\\" -Name "temp" -ItemType "directory"
+New-Item -Path "C:\\Program Files (x86)\\" -Name "Windows Application Driver" -ItemType "directory"
 Invoke-WebRequest 'https://github.com/microsoft/WinAppDriver/releases/download/v1.2.1/WindowsApplicationDriver_1.2.1.msi' -Method 'GET' -OutFile 'WindowsApplicationDriver.msi'
-Start-Process msiexec.exe -Wait -ArgumentList \'/i ${WORKSPACE}\\WindowsApplicationDriver.msi /QN /L*V ${WORKSPACE}\\temp\\msilog.log\'
+Start-Process msiexec.exe -Wait -ArgumentList \'/i C:\\Program Files (x86)\\Windows Application Driver\\WindowsApplicationDriver.msi /QN /L*V C:\\Program Files (x86)\\Windows Application Driver\\temp\\msilog.log\'
 cd "C:\\Program Files (x86)\\Windows Application Driver"
 ls
